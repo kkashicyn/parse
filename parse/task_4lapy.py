@@ -17,6 +17,7 @@ urls = []
 for i in range(1, last_page+1):
     urls.append('https://4lapy.ru/catalog/koshki/korm-koshki/sukhoy/?page='+str(i))    
 
+urls =urls[0:1]
 links = []
 for url in urls:    
     html = requests.get(url).text
@@ -29,7 +30,7 @@ for url in urls:
 
 data = []
 
-#links = links[0:20]
+links = links[0:2]
 
 for link in links:
 
@@ -38,7 +39,8 @@ for link in links:
     brand = soup.find('a', class_='b-title--h2').text.strip()
     title = soup.find('h1', class_='b-title--h1').text.strip()    
     reviews = soup.find_all('div', class_='b-review__text')[0:3]
-    country = soup.find_all('div', class_='b-characteristics-tab__characteristics-value')[7].text.strip()
+    country = soup.find(text='Страна производства').parent.parent.parent.find(class_='b-characteristics-tab__characteristics-value').text.strip()
+    # country = soup.find_all('div', class_='b-characteristics-tab__characteristics-value')[7].text.strip()
     dic = {'title': brand + ' ' +  title, 'country': country, 'reviews': []}
     
     for review in reviews:
