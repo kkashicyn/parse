@@ -4,7 +4,7 @@ from func import *
 
 tick = 0.05
 url_base = 'https://lemurrr.ru/catalog/cat/food-nutrition/dry-food'
-
+reviews_limit = 15
 
 html = requests.get(url_base).text
 soup = BeautifulSoup(html, 'lxml')
@@ -32,13 +32,13 @@ for url in urls:
 
 data = []
 
-links = links[0:10]
+#links = links[0:10]
 
 for link in links:
     html = requests.get('https://lemurrr.ru'+link).text
 
     soup = BeautifulSoup(html, 'lxml')
-    reviews = soup.find_all(attrs={"itemprop" : "reviewBody"})[0:3]
+    reviews = soup.find_all(attrs={"itemprop" : "reviewBody"})[0:reviews_limit]
     title = soup.find('h1').text.strip()
 
     dic = {'title': title, 'country': '', 'reviews': []}

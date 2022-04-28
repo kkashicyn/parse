@@ -17,7 +17,7 @@ def data():
 
     reviews = []
     #, '4lapy.json' ,'lemur.json', 'petshop.json'
-    for item in ['4lapy.json' ,'lemur.json', 'petshop.json']:
+    for item in ['4lapy.json' ,'lemur.json', 'petshop.json' ]:
         with open('data/'+item) as f:
             reviews+=json.load(f)
 

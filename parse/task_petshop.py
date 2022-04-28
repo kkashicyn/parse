@@ -2,7 +2,8 @@ from bs4 import BeautifulSoup
 from func import *
 import requests, time, json
 
-tick = 0.1
+tick = 0.05
+reviews_limit = 15
 
 url_base = 'https://www.petshop.ru/catalog/cats/syxkor/'
 html = requests.get(url_base).text
@@ -38,7 +39,7 @@ for link in links:
     review_id = soup.find('div', class_='i-flocktory')['data-fl-item-id']
     dic = {'title': h1, 'country': '', 'reviews': []}
 
-    el = requests.get('https://www.petshop.ru/api/v2/site/product/'+review_id+'/reviews/?offset=0&limit=3').json()
+    el = requests.get('https://www.petshop.ru/api/v2/site/product/'+review_id+'/reviews/?offset=0&limit='+str(reviews_limit)).json()
     for comment in el['comments']:
         dic['reviews'].append(comment['comment'])
     data.append(dic)
