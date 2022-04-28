@@ -1,4 +1,3 @@
-import re
 from flask import Flask, render_template, jsonify, request
 import json
 
@@ -10,23 +9,42 @@ def index():
 
 @app.route("/data")    
 def data():
-    data = []
 
-    for item in ['4lapy.json', 'lemur.json', 'petshop.json']:
+    reviews = []
+    #, '4lapy.json' ,'lemur.json', 'petshop.json'
+    for item in ['4lapy.json' ,'lemur.json', 'petshop.json']:
         with open('data/'+item) as f:
-            data+=json.load(f)
+            reviews+=json.load(f)
     
     query = ''
     if request.args.get('query') != None:
         query = request.args.get('query').lower()
     
     #if query and query != '':
-    data_tmp = []
-    for item in data:
+    reviews_tmp = []
+    for item in reviews:
         if query in item['title'].lower():
-           data_tmp.append(item)
-           
-    data = data_tmp        
+           reviews_tmp.append(item)
 
-    return jsonify(data), 200
+    reviews = reviews_tmp        
+
+    marks = []
+
+
+    with open('data/marks.json') as f:
+        marks+=json.load(f)
+    
+    query = ''
+    if request.args.get('query') != None:
+        query = request.args.get('query').lower()
+    
+    #if query and query != '':
+    marks_tmp = []
+    for item in marks:
+        if query in item['title'].lower():
+           marks_tmp.append(item)
+
+    marks = marks_tmp     
+
+    return jsonify({'reviews': reviews, 'marks': marks}), 200
     
