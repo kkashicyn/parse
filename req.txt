@@ -2,7 +2,7 @@ beautifulsoup4==4.11.1
 certifi==2021.10.8
 charset-normalizer==2.0.12
 click
-Flask=
+Flask
 gunicorn==20.1.0
 idna==3.3
 importlib-metadata==4.11.3
